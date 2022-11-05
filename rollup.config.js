@@ -1,25 +1,40 @@
-import typescript from 'rollup-plugin-typescript2'
-import packageJson from './package.json'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import typescript from '@rollup/plugin-typescript'
+import dts from 'rollup-plugin-dts'
 
-const rollupConfig = {
-  input: 'src/lib/index.tsx',
-  output: [
-    {
-      file: packageJson.main,
-      format: 'cjs',
-      exports: 'named',
-      sourcemap: true,
-      strict: false,
-    },
-  ],
-  plugins: [
-    typescript({
-      tsconfigOverride: {
-        exclude: ['src/example'],
+const packageJson = require('./package.json')
+
+const rollupConfig = [
+  {
+    input: 'src/lib/index.tsx',
+    output: [
+      {
+        file: packageJson.main,
+        format: 'cjs',
+        sourcemap: true,
       },
-    }),
-  ],
-  external: [...Object.keys(packageJson.peerDependencies), 'react/jsx-runtime'],
-}
+      // {
+      //   file: packageJson.module,
+      //   format: 'esm',
+      //   sourcemap: true,
+      // },
+    ],
+    plugins: [
+      resolve(),
+      commonjs(),
+      typescript({ tsconfig: './tsconfig.json' }),
+    ],
+    external: [
+      ...Object.keys(packageJson.peerDependencies),
+      'react/jsx-runtime',
+    ],
+  },
+  {
+    input: 'dist/lib/index.d.ts',
+    output: [{ file: 'dist/index.d.ts', format: 'esm' }],
+    plugins: [dts()],
+  },
+]
 
 export default rollupConfig
