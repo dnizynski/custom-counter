@@ -39,5 +39,11 @@ var CustomCounter = function (_a) {
     return (jsxRuntime.jsxs("div", { children: [jsxRuntime.jsx("button", __assign({ onClick: decrement }, { children: "-" })), value, jsxRuntime.jsx("button", __assign({ onClick: increment }, { children: "+" }))] }));
 };
 
+var Button = function (_a) {
+    var onClick = _a.onClick, text = _a.text;
+    return jsxRuntime.jsx("button", __assign({ onClick: onClick }, { children: text }));
+};
+
+exports.Button = Button;
 exports.CustomCounter = CustomCounter;
 //# sourceMappingURL=index.js.map

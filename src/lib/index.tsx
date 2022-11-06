@@ -1,3 +1,4 @@
 import CustomCounter from './CustomCounter'
+import Button from './Button'
 
-export { CustomCounter }
+export { CustomCounter, Button }

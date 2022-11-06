@@ -31,7 +31,7 @@ const rollupConfig = [
     ],
   },
   {
-    input: 'dist/lib/index.d.ts',
+    input: 'src/lib/index.tsx',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
     plugins: [dts()],
   },
